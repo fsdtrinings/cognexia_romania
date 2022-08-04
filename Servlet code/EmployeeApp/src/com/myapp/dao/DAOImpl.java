@@ -71,4 +71,49 @@ public class DAOImpl {
 		 return rs;
 		
 	}
-}
+
+
+	public boolean updateUserRole(String username , String newRole)throws SQLException
+	{
+		String query = "update appusers set role=? where username = ?";
+		
+		
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setString(1, newRole);
+		ps.setString(2, username);
+		
+		
+		int i = ps.executeUpdate();// number of rows effected
+		
+		if(i>0) return true;
+		
+		return false;
+	}
+	
+	public boolean doDeleteUser(String username)throws SQLException
+	{
+		
+		String query = "delete from appusers where username = ?";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setString(1, username);
+		
+		
+		int i = ps.executeUpdate();// number of rows effected
+		
+		if(i>0) return true;
+		
+		return false;
+	}
+
+}//end class
+
+
+
+
+
+
+
+
+
+
+

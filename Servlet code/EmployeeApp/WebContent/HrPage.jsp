@@ -14,7 +14,7 @@
 	   // use to write java code
 	   
 	   String username = (String)session.getAttribute("username");
-	   String role = (String)session.getAttribute("role");
+	   String userrole = (String)session.getAttribute("role");
 	   
 	   List<Users> allUsers = (List<Users>) session.getAttribute("allUsers");
 	   
@@ -25,22 +25,27 @@
 		
 	%>
 	welcome<b><i> <%=username%> </i></b> <br/>
-	role <%=role %>
+	role <%=userrole %>
 	<hr/>
 	
 	
-	<table>
+	<table  cellpadding="5px" cellspacing="5px">
 		<%
 			for(Users user:allUsers)
 			{
+				
+				String uname = user.getUsername();
+				String pass = user.getPassword();
+				String role = user.getRole();
+				
 				%>
 				<tr>
 				
-					<td> <%=user.getUsername() %> </td>
-					<td> <%=user.getPassword() %>  </td>
-					<td> <%=user.getRole() %>   </td>
-					<td> <a href="#">edit</a>   </td>
-					<td> <a href="#">delete</a>   </td>
+					<td> <%=uname%> </td>
+					<td> <%=pass %>  </td>
+					<td> <%=role %>   </td>
+					<td> <a href="ud?clickedUser=<%=uname%>&role=<%=role%>&city=delhi"> delete </a>   </td>
+					<td> <a href="EditEmployee.jsp?clickedUser=<%=uname%>&role=<%=role%>&password=<%=pass%>">chnage role</a>   </td>
 					
 				</tr>	
 				

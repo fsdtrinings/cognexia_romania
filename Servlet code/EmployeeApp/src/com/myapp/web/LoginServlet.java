@@ -14,11 +14,12 @@ import javax.xml.ws.Response;
 
 import com.myapp.dao.DAOImpl;
 
+import jdk.Exported;
+
 
 @WebServlet("/validate")
+
 public class LoginServlet extends HttpServlet {
-	
-	
 	
 	
 	@Override
@@ -53,10 +54,10 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("role", userRole);
 				
 				
-				String userPage =  userRole.equals("employee")?"UserPage":"LoadHrData";
+				String page =  userRole.equals("employee")?"UserPage":"LoadHrData";
 				
 				
-				request.getRequestDispatcher(userPage).forward(request, response);
+				request.getRequestDispatcher(page).forward(request, response);
 			}
 			else
 			{

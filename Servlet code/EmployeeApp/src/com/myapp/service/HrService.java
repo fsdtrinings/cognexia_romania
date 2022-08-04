@@ -28,5 +28,15 @@ public class HrService {
 		}
 		return list;
 	}
+	public boolean updateRole(String newRole,String username)throws Exception
+	{
+		return dao.updateUserRole(username, newRole);
+	}
+	public boolean deleteUser(String username)throws Exception
+	{
+		return dao.doDeleteUser(username);
+	}
+	
+	
 
 }
