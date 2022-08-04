@@ -17,10 +17,10 @@ public class DAOImpl {
 	}
 	
 	
-	public boolean validateUser(String username,String password)throws SQLException
+	public String validateUser(String username,String password)throws SQLException
 	{
-		String query = "select * from appusers where username = ? and password = ?";
-		boolean isValidUser = false;
+		String query = "select role from appusers where username = ? and password = ?";
+		
 		
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, username);
@@ -29,12 +29,13 @@ public class DAOImpl {
 		
 		 ResultSet rs  = ps.executeQuery();
 		 
+		 String role = null;
 		 while(rs.next())
 		 {
-			 return true;
+			role = rs.getString("role");
 		 }
 		
-		return isValidUser;
+		return role;
 	}
 
 	public boolean insertUser(String username,String password , String role)throws SQLException

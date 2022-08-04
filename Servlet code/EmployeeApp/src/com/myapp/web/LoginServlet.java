@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 
 import com.myapp.dao.DAOImpl;
 
@@ -17,6 +19,13 @@ import com.myapp.dao.DAOImpl;
 public class LoginServlet extends HttpServlet {
 	
 	
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.sendRedirect("home.html");
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -31,14 +40,23 @@ public class LoginServlet extends HttpServlet {
 		DAOImpl dao = new DAOImpl();
 		try{
 		
-			boolean loginStatus = dao.validateUser(username, password);
+			String userRole = dao.validateUser(username, password);
 			
-			if(loginStatus)
+			if(userRole != null)
 			{
-				int points = 100; // after some business process
-				request.setAttribute("points", points);
-				// redirect request 
-				request.getRequestDispatcher("UserPage").forward(request, response);
+				HttpSession session = request.getSession(true); // no impact if we did not pass any argument
+				
+				long loginTime = session.getCreationTime();
+				
+				session.setAttribute("loginTime", loginTime);
+				session.setAttribute("username",username);
+				session.setAttribute("role", userRole);
+				
+				
+				String userPage =  userRole.equals("employee")?"UserPage":"LoadHrData";
+				
+				
+				request.getRequestDispatcher(userPage).forward(request, response);
 			}
 			else
 			{

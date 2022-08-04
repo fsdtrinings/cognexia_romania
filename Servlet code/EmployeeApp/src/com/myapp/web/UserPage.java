@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class UserPage
@@ -20,17 +21,52 @@ public class UserPage extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		Integer point = (Integer)(request.getAttribute("points"));
+		HttpSession session = request.getSession(false);
+		
+		if(session != null)
+		{
+		
+			String username = (String)session.getAttribute("username");
+			long loginTime = (Long)session.getAttribute("loginTime");
+			
+			out.print("<h3 style='width:100%;height:10%;background-color:#E8F9F9'> Welcome "+username+"</h3>");
+			out.print("<hr/> "+loginTime);
+			
+		}
+		else
+		{
+			response.sendRedirect("home.html");
+		}
 		
 
-		out.print("<h3 style='width:100%;height:10%;background-color:#E8F9F9'> Welcome "+username+"</h3>");
-		out.print("<hr/>");
-		out.print("points :- "+point);
 		
+	}//end of post
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
-
 	
 
-}
+	
+	
+
+}//end of Servlet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
