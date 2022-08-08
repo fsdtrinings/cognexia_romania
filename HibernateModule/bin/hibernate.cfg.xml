@@ -16,9 +16,13 @@
 		
 		<property name="show_sql">true</property>
 		
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 		
 		<mapping class="p1.Employee"/>	
+		<mapping class="p1.Address"/>	
+		<mapping class="p1.EmployeeDependent"/>	
+		
+		
 		
 			
 	

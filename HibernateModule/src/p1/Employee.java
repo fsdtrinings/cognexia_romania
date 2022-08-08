@@ -1,8 +1,16 @@
 package p1;
 
+import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Employee {
@@ -14,7 +22,23 @@ public class Employee {
 	@Column(unique = true)
 	private String email;
 	private int salary;
+	private int age;
 	
+	@Embedded
+	private Address peraddress;
+	
+	@Embedded
+	@AttributeOverrides({
+	      @AttributeOverride(name = "houseNumber", column = @Column(name = "Temp_HouseNumber", length = 20)),
+	      @AttributeOverride(name = "city", column = @Column(name = "Temp_city")),
+	      @AttributeOverride(name = "country", column = @Column(name = "Temp_country"))
+	    })
+	private Address temporaryAddress;
+	
+	@ElementCollection
+	
+	@CollectionTable(name="EmpDependent", joinColumns=@JoinColumn(name = "empCode"))
+	private List<EmployeeDependent> allDependents;
 	
 	// ----------------------------------------------------------------------------------------------------------
 	public Employee() {
@@ -40,9 +64,52 @@ public class Employee {
 	// ----------------------------------------------------------------------------------------------------------
 	
 	
+	
+	
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
+	
+	
+	
+	public List<EmployeeDependent> getAllDependents() {
+		return allDependents;
+	}
+
+	public void setAllDependents(List<EmployeeDependent> allDependents) {
+		this.allDependents = allDependents;
+	}
+
+	public Address getPeraddress() {
+		return peraddress;
+	}
+
+	public void setPeraddress(Address peraddress) {
+		this.peraddress = peraddress;
+	}
+
+	
+
+	public Address getTemporaryAddress() {
+		return temporaryAddress;
+	}
+
+	public void setTemporaryAddress(Address temporaryAddress) {
+		this.temporaryAddress = temporaryAddress;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -64,11 +131,14 @@ public class Employee {
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", employeeName=" + employeeName + ", email=" + email + ", salary=" + salary
-				+ "]";
+				+ ", age=" + age + "]";
 	}
+	
+	
 	
 	
 }
