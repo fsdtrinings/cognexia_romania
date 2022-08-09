@@ -1,0 +1,44 @@
+public static void main(String[] args) {
+		
+		HQLMain obj = new HQLMain();
+				
+		
+		Session hibernate = SessionFactoryUtil.getFactory().openSession(); // we initialize the hibernate
+		
+		obj.extratDataThroughWhereClause2(hibernate);
+		
+		hibernate.close();
+		
+		
+	} //end of main method
+	
+	public void extratDataThroughWhereClause(Session hibernate)
+	{
+		 
+		String hql = "from Employee";
+		
+		Query q  = hibernate.createQuery(hql);
+		List<Employee> allEmployees = q.list();
+		 System.out.println(allEmployees.size());
+		 
+		 for (Employee employee : allEmployees) {
+			System.out.println(employee);
+		}
+		
+	}
+	public void extratDataThroughWhereClause2(Session hibernate)
+	{
+		
+		String hql = "from Employee where salary > :filterSalary";
+		
+		Query q  = hibernate.createQuery(hql);
+		q.setInteger("filterSalary", 2500);
+		List<Employee> allEmployees = q.list();
+		 System.out.println(allEmployees.size());
+		 
+		 for (Employee employee : allEmployees) {
+			System.out.println(employee);
+		}
+		
+	}
+	
