@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	
+	<bean id="account1" class="org.edc.collabra.abc.bean.BankAccount" autowire="byType">
+		<property name="accountNumber" value="101"></property>
+		<property name="accountHolderName" value="Mike"></property>
+		<property name="cityName" value="New York"></property>
+		<property name="balance" value="15000"></property>
+		
+		
+	</bean>
+	
+
+	<bean id="debitCard" class="org.edc.collabra.abc.bean.DebitCard">
+		<property name="cardNumber" value="11101"></property>
+		<property name="cardName" value="UPI-Rupay"></property>
+	</bean>	
+	
+	<bean id="insurance" class="org.edc.collabra.abc.bean.Insurance">
+		<property name="premiumValue" value="2000"></property>
+		<property name="insuranceName" value="Medical-Insurance"></property>
+	</bean>	
+	
+	
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
