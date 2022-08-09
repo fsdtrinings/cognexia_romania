@@ -16,11 +16,21 @@
 		
 		<property name="show_sql">true</property>
 		
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		
+		
+		<property name="cache.use_second-level_cache">true</property>
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		
+		
 		
 		<mapping class="p1.Employee"/>	
 		<mapping class="p1.Address"/>	
 		<mapping class="p1.EmployeeDependent"/>	
+		<mapping class="p1.WorkStation"/>	
+		<mapping class="p1.Project"/>	
+		
+		
 		
 		
 		

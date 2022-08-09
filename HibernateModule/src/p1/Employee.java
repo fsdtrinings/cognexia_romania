@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,8 +13,14 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
+@Cacheable(value = true)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Employee {
 
 	@Id
@@ -39,6 +47,17 @@ public class Employee {
 	
 	@CollectionTable(name="EmpDependent", joinColumns=@JoinColumn(name = "empCode"))
 	private List<EmployeeDependent> allDependents;
+	
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "wsNumber")
+	private WorkStation workStation;
+	
+	
+	
+	
+	
 	
 	// ----------------------------------------------------------------------------------------------------------
 	public Employee() {
@@ -76,6 +95,14 @@ public class Employee {
 	
 	
 	
+	public WorkStation getWorkStation() {
+		return workStation;
+	}
+
+	public void setWorkStation(WorkStation workStation) {
+		this.workStation = workStation;
+	}
+
 	public List<EmployeeDependent> getAllDependents() {
 		return allDependents;
 	}
