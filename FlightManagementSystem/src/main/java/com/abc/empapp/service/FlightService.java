@@ -12,5 +12,7 @@ public interface FlightService {
 	public List<Flight> getAllFlight();
 	public Optional<Flight> getFlightById(int id);
 	
+	public Flight addFlightSchedule(int flightId,int scheduleId)throws Exception;
+	
 	
 }
